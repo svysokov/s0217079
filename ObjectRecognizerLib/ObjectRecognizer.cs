@@ -17,7 +17,7 @@ namespace ObjectRecognizerLib
         IViewResult resultInterface;
         DirectoryInfo imageDirectory, libraryDirectory;
         ConcurrentQueue<String> fileNamesQueue = new ConcurrentQueue<string>();
-        public AutoResetEvent isStopped = new AutoResetEvent(false);
+        public ManualResetEvent isStopped = new ManualResetEvent(false);
         public ObjectRecognizer(DirectoryInfo directory, string imageDirectoryName, string libraryDirectoryName, IViewResult ResultInterface)
         {
             resultInterface = ResultInterface;
