@@ -36,10 +36,6 @@ namespace WPF
 
             }
         }
-        MainVM()
-        {
-
-        }
         public MainVM(Dispatcher mainDispatcher)
         {
             cDispatcher = mainDispatcher;
