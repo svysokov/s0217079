@@ -18,6 +18,13 @@ namespace ObjectRecognizerLib
         DirectoryInfo imageDirectory, libraryDirectory;
         ConcurrentQueue<String> fileNamesQueue = new ConcurrentQueue<string>();
         public ManualResetEvent isStopped = new ManualResetEvent(false);
+        public string ImageDirectory
+        {
+            get
+            {
+                return imageDirectory.FullName;
+            }
+        }        
         public ObjectRecognizer(DirectoryInfo directory, string imageDirectoryName, string libraryDirectoryName, IViewResult ResultInterface)
         {
             resultInterface = ResultInterface;
