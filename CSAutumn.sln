@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectRecognizerLib", "Obje
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF", "WPF\WPF.csproj", "{F4BA6775-C784-4DC6-BCC5-E9628847725E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDB", "WPFDB\WPFDB.csproj", "{FB654EB4-FF7B-4010-8308-EA7C5964A305}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F4BA6775-C784-4DC6-BCC5-E9628847725E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4BA6775-C784-4DC6-BCC5-E9628847725E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4BA6775-C784-4DC6-BCC5-E9628847725E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB654EB4-FF7B-4010-8308-EA7C5964A305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB654EB4-FF7B-4010-8308-EA7C5964A305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB654EB4-FF7B-4010-8308-EA7C5964A305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB654EB4-FF7B-4010-8308-EA7C5964A305}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

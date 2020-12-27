@@ -9,12 +9,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Collections.Concurrent;
 using System.Threading;
+using SixLabors.ImageSharp.Formats;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace ObjectRecognizerLib
 { 
-    public class ObjectRecognizer
+    public class ObjectRecognizer : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         IViewResult resultInterface;
+        IViewResultDB resultDBInterface;
+        bool worksWithDB = false;
         DirectoryInfo imageDirectory, libraryDirectory;
         ConcurrentQueue<String> fileNamesQueue = new ConcurrentQueue<string>();
         public ManualResetEvent isStopped = new ManualResetEvent(false);
@@ -46,6 +52,14 @@ namespace ObjectRecognizerLib
                 fileNamesQueue.Enqueue(file.FullName);
             }
         }
+        public ObjectRecognizer(ConcurrentQueue<String> files, string directory, IViewResultDB ResultInterface)
+        {
+            worksWithDB = true;
+            resultDBInterface = ResultInterface;
+            imageDirectory = new DirectoryInfo(directory);
+            libraryDirectory = new DirectoryInfo(@"C:\Users\svyso\source\repos\CSAutumn\ObjectRecognizerLib");
+            fileNamesQueue = files;
+        }
         public void StartThreads()
         {
             //Начинаем работу с потоками
@@ -58,7 +72,7 @@ namespace ObjectRecognizerLib
                 threads[i] = new Thread(StartProccessing);
                 threads[i].Name = $"{i}";
                 threads[i].Start();
-            }
+            }      
             //Синхронизация
             for (var i = 0; i < nThreads; ++i)
             {
@@ -79,7 +93,10 @@ namespace ObjectRecognizerLib
                 //Распознаем изображение
                 Result result = Recognize(name);
                 //Выводим результат в желаемой форме
-                resultInterface.GetResult(result);
+                if (!worksWithDB)
+                    resultInterface.GetResult(result);
+                else
+                    resultDBInterface.GetResultDB(result);
             }
 
             Console.WriteLine("Thread " + Thread.CurrentThread.Name + " has finished working.");
@@ -139,6 +156,18 @@ namespace ObjectRecognizerLib
                 tmp = new Result(name, p.Label, p.Confidence);
             }
             return tmp;
+        }
+        public static byte[] ImageToByteArray(string path)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                Image.Load<Rgb24>(path, out IImageFormat format).Save(stream, format);
+                return stream.ToArray();
+            }
+        }
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         static readonly string[] classLabels = new[]
         {
