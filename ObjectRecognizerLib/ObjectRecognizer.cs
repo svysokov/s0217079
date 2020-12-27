@@ -15,9 +15,8 @@ using System.Windows.Input;
 
 namespace ObjectRecognizerLib
 { 
-    public class ObjectRecognizer : INotifyPropertyChanged
+    public class ObjectRecognizer
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         IViewResult resultInterface;
         IViewResultDB resultDBInterface;
         bool worksWithDB = false;
@@ -164,10 +163,6 @@ namespace ObjectRecognizerLib
                 Image.Load<Rgb24>(path, out IImageFormat format).Save(stream, format);
                 return stream.ToArray();
             }
-        }
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         static readonly string[] classLabels = new[]
         {
